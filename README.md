@@ -19,6 +19,8 @@ pytest                                        # testy logiki
 Wynik: `results/<gpu-slug>_<backend>_<czas>/{results.json,report.md,*.png}`.
 Wybór GPU na maszynie wielokartowej: `--device N` (lub `CUDA_VISIBLE_DEVICES`).
 
+Pełny opis projektu: [docs/DOKUMENTACJA.md](docs/DOKUMENTACJA.md).
+
 ## Jak to działa
 - `llmbench/gpu.py` - detekcja (NVML → nvidia-smi → torch): nazwa, VRAM, compute capability, sterownik, bf16.
 - `llmbench/backends.py` - wspólny interfejs `Backend` (HF, vLLM, fake). Dodanie np. llama.cpp = 1 klasa.
