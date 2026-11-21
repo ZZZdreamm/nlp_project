@@ -1,0 +1,13 @@
+# Wspólne
+pyyaml
+numpy
+psutil
+nvidia-ml-py
+matplotlib
+pytest
+# Backend HF (zainstaluj torch pod swoje CUDA: https://pytorch.org/get-started/locally/)
+torch
+transformers>=4.44
+accelerate
+# Backend vLLM (opcjonalnie, osobne venv zalecane, bo wymusza własną wersję torch):
+# vllm

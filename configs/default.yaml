@@ -1,0 +1,35 @@
+# Konfiguracja benchmarku. Nadpisywalna flagami CLI.
+backend: hf            # hf | vllm | fake
+dtype: auto            # auto (bf16 jeśli GPU wspiera, inaczej fp16) | bf16 | fp16
+seed: 0
+
+# Modele (ungated, rodzina Qwen2.5). params_b służy do automatycznego doboru
+# modeli do VRAM-u (wagi muszą zająć <= max_weights_fraction pamięci GPU).
+models:
+  - {id: Qwen/Qwen2.5-0.5B-Instruct, params_b: 0.5}
+  - {id: Qwen/Qwen2.5-1.5B-Instruct, params_b: 1.5}
+  - {id: Qwen/Qwen2.5-3B-Instruct,   params_b: 3.1}
+  - {id: Qwen/Qwen2.5-7B-Instruct,   params_b: 7.6}
+  - {id: Qwen/Qwen2.5-14B-Instruct,  params_b: 14.8}
+  - {id: Qwen/Qwen2.5-32B-Instruct,  params_b: 32.8}
+max_weights_fraction: 0.7
+
+latency:               # batch=1, pomiar TTFT / TPOT / tok/s
+  prompt_len: 128
+  new_tokens: 128
+  warmup: 1
+  repeats: 3
+
+batch:                 # skalowanie przepustowości z rozmiarem batcha
+  sizes: [1, 2, 4, 8, 16, 32, 64]
+  prompt_len: 128
+  new_tokens: 64
+
+context:               # maksymalny użyteczny kontekst (do OOM lub limitu modelu)
+  lengths: [512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072]
+  new_tokens: 32
+  max_model_len_cap: 32768   # twardy limit (Qwen2.5 natywnie 32k)
+
+vllm:
+  gpu_memory_utilization: 0.90
+  enforce_eager: false

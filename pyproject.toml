@@ -1,0 +1,20 @@
+[project]
+name = "llmbench"
+version = "0.1.0"
+description = "Benchmark wydajności inferencji LLM na różnych GPU (HF Transformers / vLLM)"
+requires-python = ">=3.10"
+dependencies = ["pyyaml", "numpy", "psutil", "nvidia-ml-py", "matplotlib"]
+
+[project.optional-dependencies]
+hf = ["torch", "transformers>=4.44", "accelerate"]
+vllm = ["vllm"]
+dev = ["pytest"]
+
+[project.scripts]
+llmbench = "llmbench.cli:main"
+
+[tool.setuptools]
+packages = ["llmbench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
